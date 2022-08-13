@@ -19,18 +19,19 @@ exports.login = (req, res) => {
     .catch((err) => res.send(err));
 };
 
-exports.send = (req,res) => {
-    User.Login(req.body).then(
+exports.send = (req,resp) => {
+    User.WalletSend(req.body.tnx).then(
         result=>{
-            let data = req.body.tnx;
-            send.send(result,data)
+            send.send(result,req.body.tnx).then(res=>{
+                resp.send(res)
+            })
         }
     )
 };
 
 exports.fetchBalance = async(req,res)=>{
     console.log(req.body)
-    
+
     fetchBalance.fetchBalance(req.body).then(result=>{
         res.send(result)
     })

@@ -2,6 +2,7 @@ const joi = require("joi");
 const usermodel = require("../model/userAccoutModel");
 const { createWallet } = require("./createWallet");
 const ether = require("ethers");
+const { walletModel } = require("../model/walletModel");
 
 const Schema = joi.object({
   Username: joi.string().required(),
@@ -33,7 +34,7 @@ const CreateAccount = async (data) => {
           address: res.address,
         });
         return newAccount.save().then((res) => {
-            console.log(res)
+          console.log(res);
           return res;
         });
       });
@@ -59,8 +60,33 @@ const Login = async (data) => {
     return { message: validation.details[0].message, flag: false };
   } else {
     return usermodel.UserModel.findOne({ Email: data.Email }).then((res) => {
+      console.log(res);
       return res;
     });
   }
 };
-module.exports = { CreateAccount, Login };
+
+const WalletObject = joi.object({
+  send_account: joi.string().required(),
+  to_address: joi.string().required(),
+  send_Token_amount: joi.string().required(),
+});
+
+const WalletValidation = (data) => {
+  return WalletObject.validate(data);
+};
+
+const WalletSend = (data) => {
+  let validation = WalletValidation().error;
+
+  console.log(data);
+  if (validation) {
+    return { message: validation.details[0].message, flag: false };
+  } else {
+    return walletModel.findOne({ address: data.send_account }).then((res) => {
+      console.log(res);
+      return res;
+    });
+  }
+};
+module.exports = { CreateAccount, Login, WalletSend };
