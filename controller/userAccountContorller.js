@@ -1,7 +1,8 @@
 const User = require("../DB_operation/userUtility");
 const { UserModel } = require("../model/userAccoutModel");
 const send = require('../utility/sendCrypto')
-const fetchBalance = require('../utility/fetechWalletBalance')
+const fetchBalance = require('../utility/fetechWalletBalance');
+const { FetchAllTnx } = require("../DB_operation/Transction");
 exports.signup = (req, res) => {
   User.CreateAccount(req.body)
     .then((result) => {
@@ -35,4 +36,11 @@ exports.fetchBalance = async(req,res)=>{
     fetchBalance.fetchBalance(req.body).then(result=>{
         res.send(result)
     })
+}
+
+exports.FetchTnx = async(req,res)=>{
+  FetchAllTnx(req.body).then(resp=>{
+    console.log(resp)
+    res.send(resp)
+  })
 }

@@ -13,7 +13,7 @@ const Model = new mongoose.Schema({
         required:true
     },
     Status:{
-        type:String,
+        type:Number,
         required:true
     },
     Value:{

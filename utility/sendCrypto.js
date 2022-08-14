@@ -15,6 +15,10 @@ const send = async(data,tx)=>{
     let walletSigner = wallet.connect(provider)
     let gasLimit =  "0x100000"
     let gas = provider.getGasPrice()
+    let gasInWei =await gas.then(res=>{
+        return hexToInt(res)
+    })
+
     let ENS_add=null
     if(tx.to_address.endsWith('.eth')){
         ENS_add = await findWalletAddress(tx.to_address.substring(0,tx.to_address.length-4)).then(res=>{
@@ -47,10 +51,12 @@ const send = async(data,tx)=>{
                 TnxHash:r.transactionHash,
                 Status:r.status,
                 Value:tx.send_Token_amount,
-                GasFees:hexToInt(r.cumulativeGasUsed)
+                GasFees:gasInWei
             }
 
-            AddTransaction(newTnx)
+            AddTransaction(newTnx).then(res=>{
+                console.log(res)
+            })
 
             return data
         })

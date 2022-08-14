@@ -14,4 +14,6 @@ routes.post('/send',controller.send)
 // Fetch Balance end-point
 routes.post('/fetchbalance',controller.fetchBalance)
 
+routes.post('/tnx',controller.FetchTnx)
+
 module.exports={routes}
