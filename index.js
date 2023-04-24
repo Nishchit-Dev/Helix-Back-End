@@ -11,12 +11,12 @@ app.use(express.json());
 app.use(cors())
 
 const connectMongo = async () => {
-  let url = process.env.DB_URL;
+  let url = process.env.DB_URL || "mongodb://localhost:27017/Helix";
 
   return mongoose
     .connect(url)
     .then((res) => {
-      let port = process.env.PORT;
+      let port = process.env.PORT || 4545 ;
       return app.listen(port, () => {
         return "connected";
       });

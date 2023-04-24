@@ -1,7 +1,7 @@
 const ethers = require("ethers");
 const userModel = require('../model/userAccoutModel')
 const fetchBalance = async (data) => {
-  let provider = new ethers.providers.InfuraProvider("rinkeby");
+  let provider = new ethers.providers.InfuraProvider("gorli");
   
   let address = await findWalletAddress(data.Email);
     console.log(data.Email)

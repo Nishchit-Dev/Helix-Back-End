@@ -5,8 +5,7 @@ const walletModel = require('../model/walletModel')
 const { hexToInt } = require('./utility')
 const send = async(data,tx)=>{
     // https://rinkeby.infura.io/v3/b4c94f7cc5ca45df98ca610e9c6e86b7
-
-    let provider = new ether.providers.InfuraProvider('rinkeby')
+    let provider = new ether.providers.InfuraProvider('goerli')
 
     // let privateKey =await findWalletPrivateKey(tx.send_account)
     let privateKey = data.privateKey
